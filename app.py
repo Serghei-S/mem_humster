@@ -15,6 +15,8 @@ from hamster_matcher import HamsterMatcher
 
 
 BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
+HAMSTER_DATA_DIR = DATA_DIR / "hamsters"
 STATIC_DIR = BASE_DIR / "static"
 
 
@@ -36,7 +38,7 @@ def decode_data_url(data_url: str) -> bytes:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.matcher = HamsterMatcher(BASE_DIR)
+    app.state.matcher = HamsterMatcher(HAMSTER_DATA_DIR)
     yield
 
 
@@ -66,8 +68,8 @@ async def get_references() -> dict[str, object]:
 
 @app.get("/reference/{filename}")
 async def get_reference(filename: str) -> FileResponse:
-    file_path = (BASE_DIR / filename).resolve()
-    if file_path.parent != BASE_DIR.resolve() or not file_path.exists():
+    file_path = (HAMSTER_DATA_DIR / filename).resolve()
+    if file_path.parent != HAMSTER_DATA_DIR.resolve() or not file_path.exists():
         raise HTTPException(status_code=404, detail="Картинка не найдена.")
     return FileResponse(file_path)
 

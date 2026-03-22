@@ -86,19 +86,19 @@ class ReferenceImage:
 
 
 class HamsterMatcher:
-    def __init__(self, project_dir: Path) -> None:
-        self.project_dir = project_dir
+    def __init__(self, reference_dir: Path) -> None:
+        self.reference_dir = reference_dir
         self.reference_paths = tuple(
             sorted(
                 path
-                for path in project_dir.iterdir()
+                for path in reference_dir.iterdir()
                 if path.is_file()
                 and path.name not in IGNORED_REFERENCE_FILENAMES
                 and path.suffix.lower() in SUPPORTED_IMAGE_EXTENSIONS
             )
         )
         if not self.reference_paths:
-            raise ValueError("Не нашел референсных картинок хомяков в корне проекта.")
+            raise ValueError("Не нашел референсных картинок хомяков в data/hamsters.")
 
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.face_detector = cv2.CascadeClassifier(
