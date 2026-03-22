@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hamster Mirror</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <p class="eyebrow">Hamster Mirror</p>
+        <h1>Какой ты сегодня хомяк?</h1>
+        <p class="lead">
+          Сервис берет кадр с камеры, скрыто считывает геометрию лица и подбирает
+          хомяка не только по общему вайбу, но и по форме рта, глаз и бровей.
+        </p>
+        <div class="hero-actions">
+          <button id="startButton" class="primary-button">Включить камеру</button>
+          <span id="statusBadge" class="status-badge loading">Загружаю референсы...</span>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <article class="panel camera-panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Вход</p>
+              <h2>Камера</h2>
+            </div>
+            <span id="faceBadge" class="panel-pill waiting">Готовлю анализ лица</span>
+          </div>
+          <div class="video-frame">
+            <video id="camera" autoplay playsinline muted></video>
+            <canvas id="captureCanvas" width="640" height="480" hidden></canvas>
+          </div>
+          <p class="panel-note">
+            Сетка не рисуется, но сайт все равно читает положение рта, глаз и бровей.
+          </p>
+
+          <div class="face-insights">
+            <div class="insights-head">
+              <p class="panel-kicker">Что вижу на лице</p>
+              <span id="analysisBadge" class="panel-pill waiting">Жду данные по лицу</span>
+            </div>
+            <div id="faceReadout" class="chips-row"></div>
+            <div id="featureGrid" class="feature-grid"></div>
+          </div>
+        </article>
+
+        <article class="panel result-panel">
+          <div class="panel-head">
+            <div>
+              <p class="panel-kicker">Выход</p>
+              <h2>Ближайший хомяк</h2>
+            </div>
+            <span id="expressionBadge" class="panel-pill accent">Жду первый кадр</span>
+          </div>
+
+          <div class="result-card">
+            <div class="hamster-art">
+              <img id="bestImage" alt="Лучший хомяк" />
+            </div>
+            <div class="result-copy">
+              <p id="bestFile" class="result-file">...</p>
+              <h3 id="bestLabel">Описание появится здесь</h3>
+              <p id="bestDescription" class="result-description"></p>
+              <p id="bestScore" class="score-copy"></p>
+
+              <div class="meter-card">
+                <div class="meter-head">
+                  <span>Хомякометр</span>
+                  <strong id="meterValue">0%</strong>
+                </div>
+                <div class="meter-track">
+                  <div id="meterFill" class="meter-fill"></div>
+                </div>
+                <div id="scoreBreakdown" class="score-breakdown"></div>
+                <p id="verdictLine" class="verdict-line"></p>
+              </div>
+
+              <div class="chips">
+                <div>
+                  <span class="chips-label">Приметы хомяка</span>
+                  <div id="hamsterTraits" class="chips-row"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="panel-kicker">Ещё варианты</p>
+            <div id="alternatives" class="alternatives"></div>
+          </div>
+
+          <div class="history-block">
+            <p class="panel-kicker">Лента попаданий</p>
+            <div id="historyRail" class="history-rail"></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel gallery-panel">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Референсы</p>
+            <h2>Все хомяки из папки</h2>
+          </div>
+        </div>
+        <div id="gallery" class="gallery-grid"></div>
+      </section>
+    </main>
+
+    <script type="module" src="/static/app.js"></script>
+  </body>
+</html>
